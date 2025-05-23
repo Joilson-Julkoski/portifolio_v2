@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script type="module" src="js/firebase_controll.js"></script>
+    <script type="module" src="js/connect.js"></script>
+    <link rel="stylesheet" href="css/connect_style.css">
+</head>
+
+<body>
+    <main>
+        <div id="move-controls">
+            <button onmousedown="sendCommand('left')">
+                <svg width="24" height="24" viewBox="0 0 24 24">
+                    <polygon points="18,4 18,20 6,12" />
+                </svg>
+            </button>
+
+            <button onmousedown="sendCommand('right')">
+                <svg width="24" height="24" viewBox="0 0 24 24">
+                    <polygon points="6,4 6,20 18,12" />
+                </svg>
+            </button>
+        </div>
+        <button onmousedown="sendCommand('fire')">
+            <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="12" cy="12" r="10"  stroke-width="2" fill="none" />
+            </svg>            
+        </button>
+
+    </main>
+</body>
+
+</html>

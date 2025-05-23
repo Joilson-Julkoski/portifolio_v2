@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="css/index_style.css">
+
+    <script async src="https://ga.jspm.io/npm:es-module-shims@1.7.1/dist/es-module-shims.js"></script>
+    <script type="importmap">
+        {
+          "imports": {
+            "three": "https://cdn.jsdelivr.net/npm/three@^0.172.0/build/three.module.min.js"
+          }
+        }
+        </script>
+
+    <script type="module"
+        src="https://cdn.jsdelivr.net/npm/@google/model-viewer/dist/model-viewer-module.min.js"></script>
+
+    <script type="module"
+        src="https://cdn.jsdelivr.net/npm/@google/model-viewer-effects/dist/model-viewer-effects.min.js"></script>
+
+    <script type="module" src="https://cdn.jsdelivr.net/npm/@google/model-viewer/dist/model-viewer.min.js"></script>
+    <script type="module"
+        src="https://cdn.jsdelivr.net/npm/@google/model-viewer-effects/dist/model-viewer-effects.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <script type="module" src="https://unpkg.com/@google/model-viewer"></script>
+    <script type="module" src="js/firebase_controll.js"></script>
+    <script type="module" src="js/index.js"></script>
+    <script type="module" src="js/game_controll.js"></script>
+</head>
+
+<body>
+    <main>
+        <div class="column" id="main">
+            <div class="box" id="hero-box">
+                <div class="column" id="hero-left">
+                    <h1>Oi, eu sou o <span class="highlight">Joilson J.</span> um desenvolvedor <span
+                            class="highlight writer">fullstack</span></h1>
+                    <p>Se tiver alguma ideia ou projeto em mente, ou só quiser trocar uma ideia, fica à vontade pra me
+                        chamar!</p>
+                    <div class="row" id="conatct-row">
+                        <img class="icon" src="https://img.icons8.com/?size=100&id=16318&format=png&color=FFFFFF">
+                        <img class="icon" src="https://img.icons8.com/?size=100&id=98960&format=png&color=FFFFFF">
+                        <img class="icon" src="https://img.icons8.com/?size=100&id=38036&format=png&color=FFFFFF">
+                    </div>
+                </div>
+
+                <!-- Carrega o model-viewer com suporte a efeitos -->
+
+                <model-viewer id="effectsViewer" src="assets/old_pc.glb" camera-controls auto-rotate
+                    shadow-intensity="0" exposure="0.5" environment-image="neutral" style="width: 600px; height: 100%;">
+
+                    <effect-composer render-mode="quality">
+                        <color-grade-effect blend-mode="default" tonemapping="reinhard2" hue="0"></color-grade-effect>
+                        <outline-effect strength="1000" smoothing="0" color="#00ff00" blend-mode="ADD"></outline-effect>
+                        <glitch-effect strength="0.5" mode="sporadic" blend-mode="default"></glitch-effect>
+                        <pixelate-effect granularity="2" blend-mode="default"></pixelate-effect>
+                    </effect-composer>
+
+                </model-viewer>
+
+
+
+            </div>
+
+            <div class="row">
+                <div class="column">
+                    <div class="row">
+                        <div class="box" id="color-selector-box">
+
+                            <button class="color-selector" data-color="#ff0000" onclick="changeTheme(this)"></button>
+                            <button class="color-selector" data-color="#008000" onclick="changeTheme(this)"></button>
+                            <button class="color-selector" data-color="#0000ff" onclick="changeTheme(this)"></button>
+                            <button class="color-selector" data-color="#ffff00" onclick="changeTheme(this)"></button>
+                            <button class="color-selector" data-color="#800080" onclick="changeTheme(this)"></button>
+                        </div>
+                    </div>
+                    <div class="box" id="experience-box">
+                        <h3>Programando a cerca de: <span id="experience-clock"></span></h3>
+                        <!-- <button >Acompanhar evolução!</button> -->
+
+                    </div>
+                </div>
+                <div  id="featured-project">
+                    <div id="polaroid">
+                        <svg onclick="throwawayPin()" id="pin" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36"><path fill="currentColor" d="M23.651 23.297 12.702 12.348l9.386-7.821 9.385 9.385z"/><path fill="currentColor" d="M34.6 13.912a4.42 4.42 0 0 1-6.255 0l-6.257-6.256a4.426 4.426 0 0 1 6.257-6.258L34.6 7.656a4.423 4.423 0 0 1 0 6.256"/><path fill="#99AAB5" d="M14 17.823S-.593 35.029.188 35.813 18.177 22 18.177 22z"/><path fill="currentColor" d="M25.215 27.991a4.423 4.423 0 0 1-6.258 0L8.009 17.041a4.425 4.425 0 0 1 6.258-6.256l10.948 10.949a4.424 4.424 0 0 1 0 6.257"/></svg>
+                        <img src="https://placehold.co/400x400" alt="">
+                        <div class="content">
+                            <div>
+                                <h3>Projeto XPTO</h3>
+                                <p>Um projeto sobre pipipi popopo</p>
+                            </div>
+                            <button>
+                                <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e3e3e3"><path d="m256-240-56-56 384-384H240v-80h480v480h-80v-344L256-240Z"/></svg>
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div class="box" id="game-column">
+            <button id="start-button" onclick="createOffer()">Começar!</button>
+        </div>
+
+    </main>
+</body>
+
+</html>

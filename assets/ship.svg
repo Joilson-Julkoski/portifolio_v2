@@ -1,0 +1,5 @@
+<svg viewBox="0 0 100 100" width="60" height="60" fill="none" stroke="currentColor" stroke-width="2">
+    <path d="m10 90 40-80 40 80-40-30Z" fill="currentColor" opacity=".2" />
+    <path d="m10 90 40-80 40 80" />
+    <path d="m10 90 40-30 40 30" />
+</svg>
