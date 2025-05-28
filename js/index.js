@@ -32,7 +32,17 @@ function updateExperienceClock() {
 window.changeTheme = (e) => {
     const color = e.dataset.color;
     document.body.style.setProperty('--main-color', color);
-    getHueFromHex(color)
+
+    // Salva a cor no localStorage
+    localStorage.setItem('mainColor', color);
+    let previous = document.getElementsByClassName('selected')
+    if (previous.length > 0) {
+        previous[0].classList.remove('selected')
+    }
+
+
+    e.classList.add("selected")
+    getHueFromHex(color);
 }
 
 
@@ -72,6 +82,16 @@ document.addEventListener("DOMContentLoaded", () => {
     };
 
     type();
+
+    const savedColor = localStorage.getItem('mainColor');
+    if (savedColor) {
+        document.body.style.setProperty('--main-color', savedColor);
+        getHueFromHex(savedColor);
+    }
+
+    // Make the DIV element draggable:
+    dragElement(document.getElementById("pin"));
+
 });
 
 function hexToHSL(hex) {
@@ -117,16 +137,67 @@ function getHueFromHex(hex) {
     outlined.color = hex
 }
 
-document.getElementById('pin').addEventListener('click', function () {
-  const pin = this;
-  pin.classList.add('throwing');
 
-  document.getElementById('polaroid').classList.add('falling')
+const card = document.querySelector('#polaroid'); // supondo que a div tem classe .card
 
-  // Remove do DOM após a animação
-  setTimeout(() => {
-    pin.remove();
-  }, 800); // mesma duração da animação
+window.addEventListener('mousemove', (e) => {
+    const rect = card.getBoundingClientRect();
+    const x = e.clientX - rect.left; // posição X relativa ao card
+
+    // Calcular rotação no eixo Z baseado na posição X do mouse (centro é zero)
+    const rotateZ = (x - rect.width / 2) / 500; // ajusta o divisor para sensibilidade
+
+    card.style.transform = `rotateZ(${rotateZ}deg)`;
 });
+
+
+
+// document.getElementById('pin').addEventListener('click', function () {
+//     const pin = this;
+//     pin.classList.add('throwing');
+
+//     document.getElementById('polaroid').classList.add('falling')
+
+//     // Remove do DOM após a animação
+//     setTimeout(() => {
+//         pin.remove();
+//     }, 800); // mesma duração da animação
+// });
+
+
+
+
+const el = document.getElementById("pin");
+let offsetX = 0, offsetY = 0, isDown = false;
+
+el.addEventListener("mousedown", function (e) {
+    isDown = true;
+    document.getElementById('polaroid').classList.add('falling')
+
+    const rect = el.getBoundingClientRect();
+    offsetX = rect.left;
+    offsetY = rect.top;
+
+    el.style.position = 'absolute';
+    el.style.margin = 0;
+
+    // Evita o efeito do transform: se estiver usando, desative no CSS
+    document.body.style.userSelect = "none"; // evita seleção de texto
+});
+
+document.addEventListener("mouseup", function () {
+    pin.classList.add('throwing');
+
+    isDown = false;
+    document.body.style.userSelect = ""; // reativa seleção de texto
+});
+
+document.addEventListener("mousemove", function (e) {
+    if (!isDown) return;
+    el.style.left = (e.clientX - offsetX) + 'px';
+    el.style.top = (e.clientY - offsetY) + 'px';
+});
+
+
 
 const body = document.body;

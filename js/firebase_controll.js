@@ -2,13 +2,13 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.0/fireba
 import { getDatabase, update, ref, get, child, onValue, off} from "https://www.gstatic.com/firebasejs/10.11.0/firebase-database.js";
 
 const firebaseConfig = {
-    apiKey: "xxx",
-    authDomain: "xxx",
-    databaseURL: "xxx",
-    projectId: "xxx",
-    storageBucket: "xxx",
-    messagingSenderId: "xxx",
-    appId: "xxx",
+    apiKey: "AIzaSyD8ZS_OCx178BVdnxniv1IhOOcHg92J-Qc",
+    authDomain: "portfolio-webrtc-controller.firebaseapp.com",
+    databaseURL: "https://portfolio-webrtc-controller-default-rtdb.firebaseio.com",
+    projectId: "portfolio-webrtc-controller",
+    storageBucket: "portfolio-webrtc-controller.firebasestorage.app",
+    messagingSenderId: "441502457338",
+    appId: "1:441502457338:web:fa20c5e044bff6d8e8d843"
 };
 
 initializeApp(firebaseConfig);

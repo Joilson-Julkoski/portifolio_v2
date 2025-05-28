@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Architects+Daughter&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
 
 body {
     margin: 0;
@@ -24,6 +24,16 @@ div {
 #conatct-row {
     height: fit-content;
     gap: 8px;
+}
+
+#conatct-row img {
+    transition: 300ms;
+    cursor: pointer;
+    filter: drop-shadow(0px 0px 0px var(--main-color));
+}
+
+#conatct-row img:hover {
+    filter: drop-shadow(-5px 5px 1px var(--main-color));
 }
 
 button {
@@ -61,6 +71,7 @@ main {
     padding: 64px;
     box-sizing: border-box;
     background-color: #131212;
+    overflow: hidden;
 }
 
 #main {
@@ -102,7 +113,7 @@ span.highlight {
 
 .box:hover {
     border-radius: 0px;
-    box-shadow: 12px 12px 0px 0px var(--main-color);
+    box-shadow: -12px 12px 0px 0px var(--main-color);
     border: 2px solid var(--main-color);
 
 }
@@ -113,76 +124,20 @@ span.highlight {
 }
 
 #featured-project {
-    background-color: #131212;
+    /* background-color: #131212; */
     width: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
     overflow: visible;
     position: relative;
+    perspective: 1000px;
+    transform-style: preserve-3d;
 }
+
 
 #featured-project:hover {
-    border-radius: 24px;
     box-shadow: none
-}
-
-#polaroid #pin {
-    font-size: 32px;
-    position: absolute;
-    left: 50%;
-    transform: translate(0, -80%);
-    width: 50px;
-    color: var(--main-color);
-    cursor: pointer;
-}
-
-
-
-@keyframes throwAway {
-    0% {
-        transform: translate(0px, 0px) rotate(0deg);
-    }
-
-    10% {
-        transform: translate(20px, -25px) rotate(36deg);
-    }
-
-    20% {
-        transform: translate(40px, -40px) rotate(72deg);
-    }
-
-    30% {
-        transform: translate(60px, -45px) rotate(108deg);
-    }
-
-    40% {
-        transform: translate(80px, -40px) rotate(144deg);
-    }
-
-    50% {
-        transform: translate(100px, -25px) rotate(180deg);
-    }
-
-    60% {
-        transform: translate(120px, 0px) rotate(216deg);
-    }
-
-    70% {
-        transform: translate(140px, 40px) rotate(252deg);
-    }
-
-    80% {
-        transform: translate(160px, 90px) rotate(288deg);
-    }
-
-    90% {
-        transform: translate(180px, 150px) rotate(324deg);
-    }
-
-    100% {
-        transform: translate(200px, 200px) rotate(360deg);
-    }
 }
 
 .throwing {
@@ -191,32 +146,44 @@ span.highlight {
 }
 
 .falling {
-
-    animation: cair 4s ease-in infinite;
+    transform-origin: center top;
+    perspective: 100px;
+    animation: cair 1s ease-in forwards;
+    animation-delay: 150ms;
+    
 }
 
-@keyframes cair {
-      0%   { transform: translateX(0px)    translateY(0px)    rotate(0deg); }
-      10%  { transform: translateX(-10px)  translateY(80px)   rotate(-5deg); }
-      20%  { transform: translateX(10px)   translateY(160px)  rotate(8deg); }
-      30%  { transform: translateX(-12px)  translateY(240px)  rotate(-6deg); }
-      40%  { transform: translateX(8px)    translateY(320px)  rotate(5deg); }
-      50%  { transform: translateX(-6px)   translateY(400px)  rotate(-4deg); }
-      60%  { transform: translateX(4px)    translateY(480px)  rotate(3deg); }
-      70%  { transform: translateX(-3px)   translateY(560px)  rotate(-2deg); }
-      80%  { transform: translateX(2px)    translateY(640px)  rotate(1deg); }
-      90%  { transform: translateX(-1px)   translateY(720px)  rotate(-1deg); }
-      100% { transform: translateX(0px)    translateY(800px)  rotate(0deg); }
-}
+
 
 #polaroid {
     background-color: whitesmoke;
     padding: 24px;
     box-sizing: border-box;
-    width: 80%;
-    top: 10px;
+    width: 100%;
+    gap: 8px;
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    transition: 0.1s ease;
+    z-index: 10;
+    backface-visibility: hidden;
+    transform-origin: center top;
+
+
 }
 
+#polaroid #pin {
+    font-size: 32px;
+    position: absolute;
+    /* left: 50%; */
+    top: 0;
+    /* transform: translate(0, -80%); */
+    width: 60px;
+    color: var(--main-color);
+    cursor: grabbing;
+    z-index: 9999;
+    filter: drop-shadow(0px 5px 1px rgba(0, 0, 0, 0.71));
+}
 
 
 #polaroid h3,
@@ -234,13 +201,55 @@ span.highlight {
 
 #polaroid .content {
     display: flex;
+    align-items: end;
+    justify-content: space-between;
 }
+
+
+#polaroid button {
+    padding: 0;
+    height: 24px;
+    color: var(--gray-color);
+    background-color: transparent;
+    cursor: pointer;
+
+}
+
 
 #polaroid .content>div {
     display: flex;
     flex-direction: column;
     justify-content: start;
 }
+
+
+#more-projects {
+    border: 1px dashed var(--main-color);
+    width: 90%;
+    height: 90%;
+    border-radius: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 16px;
+    gap: 16px;
+
+}
+
+#more-projects span {
+    font-family: "Architects Daughter", cursive;
+    color: var(--main-color);
+    font-size: 20px;
+    text-align: center;
+    letter-spacing: 2px;
+}
+
+
+#more-projects span#ops {
+    font-size: 48px;
+}
+
 
 
 #game-column {
@@ -335,6 +344,7 @@ a {
     height: 50px;
     border-radius: 100%;
     padding: 0;
+    cursor: pointer;
 }
 
 #color-selector-box {
@@ -364,6 +374,11 @@ a {
 
 .color-selector[data-color="#ffff00"] {
     background-color: #ffff00;
+}
+
+.color-selector.selected {
+    filter:
+        drop-shadow(-5px 5px 0px color-mix(in srgb, var(--main-color) 50%, transparent)) drop-shadow(-5px 5px 0px color-mix(in srgb, var(--main-color) 30%, transparent))
 }
 
 
@@ -404,5 +419,66 @@ a {
 
     50% {
         opacity: 1
+    }
+}
+
+
+@keyframes throwAway {
+    0% {
+        transform: translate(0px, 0px) rotate(0deg);
+    }
+
+    10% {
+        transform: translate(20px, -25px) rotate(36deg);
+    }
+
+    20% {
+        transform: translate(40px, -40px) rotate(72deg);
+    }
+
+    30% {
+        transform: translate(60px, -45px) rotate(108deg);
+    }
+
+    40% {
+        transform: translate(80px, -40px) rotate(144deg);
+    }
+
+    50% {
+        transform: translate(100px, -25px) rotate(180deg);
+    }
+
+    60% {
+        transform: translate(120px, 0px) rotate(216deg);
+    }
+
+    70% {
+        transform: translate(140px, 40px) rotate(252deg);
+    }
+
+    80% {
+        transform: translate(160px, 90px) rotate(288deg);
+    }
+
+    90% {
+        transform: translate(180px, 150px) rotate(324deg);
+    }
+
+    100% {
+        transform: translate(200px, 200px) rotate(360deg);
+    }
+}
+
+
+
+@keyframes cair {
+    0% {
+        transform: translateY(0px);
+        opacity: 1;
+    }
+
+    100% {
+        transform: translateY(800px) rotateZ(25deg);
+        opacity: 0;
     }
 }
