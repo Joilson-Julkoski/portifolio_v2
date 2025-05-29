@@ -131,8 +131,6 @@ span.highlight {
     justify-content: center;
     overflow: visible;
     position: relative;
-    perspective: 1000px;
-    transform-style: preserve-3d;
 }
 
 
@@ -140,50 +138,39 @@ span.highlight {
     box-shadow: none
 }
 
-.throwing {
-
-    animation: throwAway 0.8s ease-in forwards;
-}
-
-.falling {
-    transform-origin: center top;
-    perspective: 100px;
-    animation: cair 1s ease-in forwards;
-    animation-delay: 150ms;
-    
-}
 
 
 
-#polaroid {
-    background-color: whitesmoke;
-    padding: 24px;
-    box-sizing: border-box;
-    width: 100%;
-    gap: 8px;
-    display: flex;
-    flex-direction: column;
-    position: absolute;
-    transition: 0.1s ease;
-    z-index: 10;
-    backface-visibility: hidden;
-    transform-origin: center top;
-
-
-}
-
-#polaroid #pin {
+#featured-project #pin {
     font-size: 32px;
     position: absolute;
-    /* left: 50%; */
-    top: 0;
-    /* transform: translate(0, -80%); */
+    top: -30px;
+    left: calc(50% );
     width: 60px;
     color: var(--main-color);
     cursor: grabbing;
     z-index: 9999;
     filter: drop-shadow(0px 5px 1px rgba(0, 0, 0, 0.71));
 }
+
+
+#polaroid {
+    background-color: whitesmoke;
+    padding: 24px;
+    box-sizing: border-box;
+    height: 100%;
+    aspect-ratio: 1 / 1.2;
+    gap: 8px;
+    display: flex;
+    position: absolute;
+    flex-direction: column;
+    transition: 0.1s ease;
+    z-index: 10;
+    backface-visibility: hidden;
+    transform-origin: center top;
+}
+
+
 
 
 #polaroid h3,
@@ -228,6 +215,7 @@ span.highlight {
     width: 90%;
     height: 90%;
     border-radius: 24px;
+    position: absolute;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -396,16 +384,21 @@ a {
 
 
 
+.fall {
+    animation: throwAway 1.2s ease-in forwards;
+}
+
+.throwing {
+    animation: throwAway 1.2s cubic-bezier(.52, -0.45, .91, 1.03) forwards;
+}
 
 
-@keyframes rotation {
-    0% {
-        transform: rotate(0deg);
-    }
+.falling {
+    transform-origin: center top;
+    perspective: 100px;
+    animation: cair 1s ease-in forwards;
+    animation-delay: 150ms;
 
-    100% {
-        transform: rotate(360deg);
-    }
 }
 
 
@@ -422,53 +415,15 @@ a {
     }
 }
 
-
 @keyframes throwAway {
     0% {
-        transform: translate(0px, 0px) rotate(0deg);
-    }
-
-    10% {
-        transform: translate(20px, -25px) rotate(36deg);
-    }
-
-    20% {
-        transform: translate(40px, -40px) rotate(72deg);
-    }
-
-    30% {
-        transform: translate(60px, -45px) rotate(108deg);
-    }
-
-    40% {
-        transform: translate(80px, -40px) rotate(144deg);
-    }
-
-    50% {
-        transform: translate(100px, -25px) rotate(180deg);
-    }
-
-    60% {
-        transform: translate(120px, 0px) rotate(216deg);
-    }
-
-    70% {
-        transform: translate(140px, 40px) rotate(252deg);
-    }
-
-    80% {
-        transform: translate(160px, 90px) rotate(288deg);
-    }
-
-    90% {
-        transform: translate(180px, 150px) rotate(324deg);
+        transform: translateY(0) translateX(0) rotate(0deg);
     }
 
     100% {
-        transform: translate(200px, 200px) rotate(360deg);
+        transform: translateY(100vh) translateX(0) rotate(1000deg);
     }
 }
-
 
 
 @keyframes cair {

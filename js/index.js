@@ -152,50 +152,44 @@ window.addEventListener('mousemove', (e) => {
 
 
 
-// document.getElementById('pin').addEventListener('click', function () {
-//     const pin = this;
-//     pin.classList.add('throwing');
-
-//     document.getElementById('polaroid').classList.add('falling')
-
-//     // Remove do DOM após a animação
-//     setTimeout(() => {
-//         pin.remove();
-//     }, 800); // mesma duração da animação
-// });
-
-
-
-
 const el = document.getElementById("pin");
-let offsetX = 0, offsetY = 0, isDown = false;
+let offsetX = 0, offsetY = 0, isDown = false, move = false;
 
 el.addEventListener("mousedown", function (e) {
     isDown = true;
     document.getElementById('polaroid').classList.add('falling')
 
-    const rect = el.getBoundingClientRect();
-    offsetX = rect.left;
-    offsetY = rect.top;
+    offsetX = el.clientWidth / 2;
+    offsetY = el.clientHeight / 2;
 
     el.style.position = 'absolute';
     el.style.margin = 0;
 
-    // Evita o efeito do transform: se estiver usando, desative no CSS
-    document.body.style.userSelect = "none"; // evita seleção de texto
 });
 
 document.addEventListener("mouseup", function () {
     pin.classList.add('throwing');
-
+    if (move) {
+        pin.classList.remove('throwing');
+        pin.classList.add('fall');
+    }
     isDown = false;
     document.body.style.userSelect = ""; // reativa seleção de texto
 });
 
 document.addEventListener("mousemove", function (e) {
+    // console.log("offsetX "  + offsetX)
+    // console.log(e.clientX )
+    if (isDown)
+        move = true
+    console.log("MOVU")
+
+    let a = document.getElementById('featured-project').getBoundingClientRect();
+    console.log()
     if (!isDown) return;
-    el.style.left = (e.clientX - offsetX) + 'px';
-    el.style.top = (e.clientY - offsetY) + 'px';
+
+    el.style.left = (e.clientX - a.left - offsetX) + 'px';
+    el.style.top = (e.clientY - a.top - offsetY) + 'px';
 });
 
 
