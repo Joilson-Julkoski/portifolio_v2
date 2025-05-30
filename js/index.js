@@ -1,7 +1,7 @@
 function updateExperienceClock() {
 
 
-    let clock = document.getElementById("experience-clock")
+    let clock = document.getElementById("experience-time")
 
     let start = new Date(2020, 6, 1)
     let now = new Date()
@@ -11,21 +11,12 @@ function updateExperienceClock() {
 
 
     const days = Math.floor(totalSeconds / (24 * 60 * 60));
-    // let rest = totalSeconds % (24 * 60 * 60);
-
-    // const hours = Math.floor(rest / 3600);
-    // rest %= 3600;
-
-    // const minutes = Math.floor(rest / 60);
-    // const seconds = rest % 60;
-
-    // // Formata com zeros à esquerda
-    // const pad = (n) => n.toString().padStart(2, "0");
 
     clock.innerText =
         `${days} dias`;
-
 }
+
+
 
 
 
@@ -33,7 +24,6 @@ window.changeTheme = (e) => {
     const color = e.dataset.color;
     document.body.style.setProperty('--main-color', color);
 
-    // Salva a cor no localStorage
     localStorage.setItem('mainColor', color);
     let previous = document.getElementsByClassName('selected')
     if (previous.length > 0) {
@@ -44,6 +34,52 @@ window.changeTheme = (e) => {
     e.classList.add("selected")
     getHueFromHex(color);
 }
+
+const container = document.querySelector('#experience-box');
+const fill = document.getElementById('fill');
+
+function getWaterLevelPercent() {
+  const now = new Date();
+  const minutesPassed = now.getHours() * 60 + now.getMinutes();
+  const totalMinutes = 24 * 60;
+  return (minutesPassed / totalMinutes) * 100;
+}
+
+function updateWaterLevel() {
+  const percent = getWaterLevelPercent();
+  fill.style.height = `${percent}%`;
+}
+
+function resetWaterLevel() {
+  fill.style.height = `0%`;
+}
+
+// Aplica quando entra
+container.addEventListener('mouseenter', updateWaterLevel);
+
+// Remove quando sai
+container.addEventListener('mouseleave', resetWaterLevel);
+
+
+
+function createMoreXp() {
+    const box = document.querySelector("#experience-box")
+    const xp = document.createElement("span")
+    xp.classList.add("xp")
+    xp.innerText = "+1xp"
+
+    const randomX = Math.floor(Math.random() * (box.clientWidth - 20)) + "px";
+
+    xp.style.setProperty('--pos-x', randomX);
+    
+    box.appendChild(xp)
+
+    setTimeout(() => {
+        xp.remove()
+    }, 3100);
+}
+
+setInterval((e) => createMoreXp(), 1000)
 
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -156,8 +192,11 @@ const el = document.getElementById("pin");
 let offsetX = 0, offsetY = 0, isDown = false, move = false;
 
 el.addEventListener("mousedown", function (e) {
+    e.stopPropagation(); // evita propagação pra outros listeners
     isDown = true;
-    document.getElementById('polaroid').classList.add('falling')
+    move = false;
+
+    document.getElementById('polaroid').classList.add('falling');
 
     offsetX = el.clientWidth / 2;
     offsetY = el.clientHeight / 2;
@@ -165,33 +204,32 @@ el.addEventListener("mousedown", function (e) {
     el.style.position = 'absolute';
     el.style.margin = 0;
 
-});
-
-document.addEventListener("mouseup", function () {
-    pin.classList.add('throwing');
-    if (move) {
-        pin.classList.remove('throwing');
-        pin.classList.add('fall');
-    }
-    isDown = false;
-    document.body.style.userSelect = ""; // reativa seleção de texto
+    // Previne seleção de texto ao arrastar
+    document.body.style.userSelect = "none";
 });
 
 document.addEventListener("mousemove", function (e) {
-    // console.log("offsetX "  + offsetX)
-    // console.log(e.clientX )
-    if (isDown)
-        move = true
-    console.log("MOVU")
-
-    let a = document.getElementById('featured-project').getBoundingClientRect();
-    console.log()
     if (!isDown) return;
 
-    el.style.left = (e.clientX - a.left - offsetX) + 'px';
-    el.style.top = (e.clientY - a.top - offsetY) + 'px';
+    move = true;
+
+    const parentRect = document.getElementById('featured-project').getBoundingClientRect();
+    el.style.left = (e.clientX - parentRect.left - offsetX) + 'px';
+    el.style.top = (e.clientY - parentRect.top - offsetY) + 'px';
 });
 
+el.addEventListener("mouseup", function () {
+    console.log(isDown)
+    if (!isDown) return;
+
+    isDown = false;
+
+    if (move) {
+        el.classList.add('fall');
+    } else {
+        el.classList.add('throwing');
+    }
+});
 
 
 const body = document.body;

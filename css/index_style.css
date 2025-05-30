@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Architects+Daughter&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Architects+Daughter&family=Press+Start+2P&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
 
 body {
     margin: 0;
@@ -9,7 +9,7 @@ body {
     --main-gap: 32px;
     --main-color: #008000;
     --gray-color: #2c2c2c;
-    --gray-color: #2c2c2c;
+    --background-color: #171717;
 }
 
 div {
@@ -101,7 +101,7 @@ main {
     height: 100%;
     border-radius: 24px;
     transition: 0.4s;
-    background-color: #171717;
+    background-color: var(--background-color);
     padding: 24px;
 }
 
@@ -145,7 +145,7 @@ span.highlight {
     font-size: 32px;
     position: absolute;
     top: -30px;
-    left: calc(50% );
+    left: calc(50%);
     width: 60px;
     color: var(--main-color);
     cursor: grabbing;
@@ -320,6 +320,47 @@ a {
     display: flex;
     flex-direction: column;
     gap: 16px;
+    position: relative;
+    overflow: hidden;
+    border-radius: 16px;
+    box-shadow: none;
+}
+
+#experience-box h3 {
+    text-shadow: -2px 0 var(--background-color), 0 2px var(--background-color), 2px 0 var(--background-color), 0 -2px var(--background-color);
+    z-index: 2;
+
+}
+
+#experience-time {
+    color: var(--main-color);
+    font-weight: 900;
+    font-size: 36px;
+    text-shadow: -2px 0 var(--background-color), 0 2px var(--background-color), 2px 0 var(--background-color), 0 -2px var(--background-color);
+    z-index: 2;
+}
+
+.xp {
+    color: var(--main-color);
+    font-size: 16px;
+    position: absolute;
+    font-family: "Press Start 2P", system-ui;
+    animation: fade-in 3s ease-in forwards;
+    left: var(--pos-x, 0px);
+}
+
+#experience-box .fill {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 0%;
+  background: var(--main-color);
+  transition: height 1s ease ;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  overflow: hidden;
 }
 
 .writer::after {
@@ -333,16 +374,24 @@ a {
     border-radius: 100%;
     padding: 0;
     cursor: pointer;
+    opacity: 0.2;
 }
 
-#color-selector-box {
-
-    display: flex;
-    flex-direction: row;
-    gap: 16px;
-    justify-content: center;
-    align-items: center;
+.color-selector:hover {
+    border-radius: 16px;
+    opacity: 0.5;
 }
+
+
+
+.color-selector.selected {
+    opacity: 1;
+    border-radius: 16px;
+    filter:
+        drop-shadow(-5px 5px 0px color-mix(in srgb, var(--main-color) 50%, transparent)) drop-shadow(-5px 5px 0px color-mix(in srgb, var(--main-color) 30%, transparent));
+
+}
+
 
 .color-selector[data-color="#800080"] {
     background-color: #800080;
@@ -364,9 +413,13 @@ a {
     background-color: #ffff00;
 }
 
-.color-selector.selected {
-    filter:
-        drop-shadow(-5px 5px 0px color-mix(in srgb, var(--main-color) 50%, transparent)) drop-shadow(-5px 5px 0px color-mix(in srgb, var(--main-color) 30%, transparent))
+#color-selector-box {
+
+    display: flex;
+    flex-direction: row;
+    gap: 16px;
+    justify-content: center;
+    align-items: center;
 }
 
 
@@ -384,6 +437,7 @@ a {
 
 
 
+
 .fall {
     animation: throwAway 1.2s ease-in forwards;
 }
@@ -397,8 +451,6 @@ a {
     transform-origin: center top;
     perspective: 100px;
     animation: cair 1s ease-in forwards;
-    animation-delay: 150ms;
-
 }
 
 
@@ -435,5 +487,19 @@ a {
     100% {
         transform: translateY(800px) rotateZ(25deg);
         opacity: 0;
+    }
+}
+
+
+@keyframes fade-in {
+
+    0% {
+        top: 100%;
+        opacity: 0;
+    }
+
+    100% {
+        top: -25px;
+        opacity: 1;
     }
 }

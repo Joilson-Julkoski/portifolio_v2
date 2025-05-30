@@ -50,8 +50,9 @@
 
                 <!-- Carrega o model-viewer com suporte a efeitos -->
 
-                <model-viewer id="effectsViewer" src="assets/old_pc.glb" camera-controls auto-rotate
-                    shadow-intensity="0" exposure="0.5" environment-image="neutral" style="width: 600px; height: 100%;">
+                <model-viewer id="effectsViewer" src="assets/old_pc.glb" camera-controls camera-orbit="130deg 65deg 11m"
+                    auto-rotate shadow-intensity="0" exposure="0.5" environment-image="neutral"
+                    style="width: 600px; height: 100%;">
 
                     <effect-composer render-mode="quality">
                         <color-grade-effect blend-mode="default" tonemapping="reinhard2" hue="0"></color-grade-effect>
@@ -79,8 +80,9 @@
                         </div>
                     </div>
                     <div class="box" id="experience-box">
-                        <h3>Programando a cerca de: <span id="experience-clock"></span></h3>
-                        <!-- <button >Acompanhar evolução!</button> -->
+                        <h3>Programando a cerca de: </h3>
+                        <span id="experience-time"></span>
+                        <div class="fill" id="fill"></div>
 
                     </div>
                 </div>
