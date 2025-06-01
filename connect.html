@@ -13,24 +13,18 @@
 <body>
     <main>
         <div id="move-controls">
-            <button onmousedown="sendCommand('left')">
+            <button onmousedown="sendCommand('left')" onmouseup="sendCommand('stop')">
                 <svg width="24" height="24" viewBox="0 0 24 24">
                     <polygon points="18,4 18,20 6,12" />
                 </svg>
             </button>
 
-            <button onmousedown="sendCommand('right')">
+            <button onmousedown="sendCommand('right')" onmouseup="sendCommand('stop')">
                 <svg width="24" height="24" viewBox="0 0 24 24">
                     <polygon points="6,4 6,20 18,12" />
                 </svg>
             </button>
         </div>
-        <button onmousedown="sendCommand('fire')">
-            <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <circle cx="12" cy="12" r="10"  stroke-width="2" fill="none" />
-            </svg>            
-        </button>
-
     </main>
 </body>
 

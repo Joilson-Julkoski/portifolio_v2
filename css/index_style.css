@@ -54,7 +54,7 @@ button:hover {
 
 #hero-left {
     justify-content: center;
-    align-items: center;
+    align-items: start;
     gap: 16px;
     display: flex;
     flex-direction: column;
@@ -212,7 +212,7 @@ span.highlight {
 
 #more-projects {
     border: 1px dashed var(--main-color);
-    width: 90%;
+    aspect-ratio: 1 / 1.2;
     height: 90%;
     border-radius: 24px;
     position: absolute;
@@ -240,7 +240,7 @@ span.highlight {
 
 
 
-#game-column {
+.game-column {
     width: 45%;
     height: 100%;
     justify-content: center;
@@ -248,12 +248,27 @@ span.highlight {
     display: flex;
     position: relative;
     flex-direction: column;
+    gap: 24px;
+    overflow: hidden;
 }
+
+.game-column h2 {
+    text-align: center;
+
+}
+
+.game-column:hover button {
+    background-color: var(--main-color);
+    color: white;
+    cursor: pointer;
+}
+
 
 #game-ship {
     color: var(--main-color);
     position: absolute;
     bottom: 10px;
+    left: 50%;
 }
 
 .game-asteroid {
@@ -282,13 +297,19 @@ h3 {
 #alternative-link {
     font-size: 1.5rem;
     transition: 0.4s;
-    color: whitesmoke;
+    color: gray;
+    cursor: pointer;
+    border-bottom: 3px solid transparent;
+}
+
+#alternative-link span {
+    color: gray;
+    text-decoration: line-through;
+
 }
 
 #alternative-link:hover {
-    /* font-size: x-large; */
-    font-size: 2rem;
-    color: var(--main-color);
+    border-bottom: 3px solid var(--main-color);
 }
 
 p,
@@ -307,6 +328,8 @@ a {
 }
 
 #hero-box {
+    container-name: hero-box;
+    container-type: inline-size;
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -350,17 +373,17 @@ a {
 }
 
 #experience-box .fill {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 0%;
-  background: var(--main-color);
-  transition: height 1s ease ;
-  display: flex;
-  align-items: flex-start;
-  justify-content: center;
-  overflow: hidden;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 0%;
+    background: var(--main-color);
+    transition: height 1s ease;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    overflow: hidden;
 }
 
 .writer::after {
@@ -369,12 +392,13 @@ a {
 }
 
 .color-selector {
-    width: 50px;
-    height: 50px;
+    max-width: 50px;
     border-radius: 100%;
     padding: 0;
     cursor: pointer;
     opacity: 0.2;
+    width: 100%;
+    aspect-ratio: 1;
 }
 
 .color-selector:hover {
@@ -422,6 +446,78 @@ a {
     align-items: center;
 }
 
+#main>div:nth-child(1)>div:nth-child(2) {
+    display: none;
+}
+
+@media screen and (max-width: 1400px) {
+    main {
+        padding: 16px;
+    }
+
+    #hero-box {
+        width: 100%;
+        position: relative;
+    }
+
+    body>main:nth-child(1)>div:nth-child(2) {
+        display: none;
+    }
+
+    #main>div:nth-child(1)>div:nth-child(2) {
+        display: flex;
+        width: 100%;
+    }
+
+    #main {
+        width: 100%;
+    }
+}
+
+
+@container hero-box (width < 500px) {
+    model-viewer {
+        opacity: 0.5;
+        filter: blur(2px);
+        position: absolute;
+        z-index: 1;
+
+    }
+
+    #hero-left {
+        z-index: 2;
+        text-shadow: -2px 0 var(--background-color), 0 2px var(--background-color), 2px 0 var(--background-color), 0 -2px var(--background-color);
+    }
+}
+
+
+@media screen and (max-width: 800px) {
+    #main>div:nth-child(1)>div:nth-child(2) {
+        display: none;
+    }
+
+    #main>div:nth-child(1) {
+        height: auto;
+    }
+
+    #main>.row {
+        flex-direction: column;
+        gap: 16px;
+    }
+
+    main {
+        overflow: auto;
+    }
+
+    #hero-box {
+        width: 100%;
+    }
+    
+    #featured-project {
+        height: 100%;
+    }
+
+}
 
 .loader {
     width: 24px;
@@ -433,9 +529,6 @@ a {
     box-sizing: border-box;
     animation: rotation 1s linear infinite;
 }
-
-
-
 
 
 .fall {

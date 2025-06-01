@@ -2,7 +2,9 @@ import { firebaseSaveUpdate, firebaseListening } from './firebase_controll.js';
 
 let peer, dataChannel;
 let left = 0
-const game = document.querySelector("#game-column")
+const game = document.querySelector(".game-column")
+let gLoop = null
+let aLoop = null
 
 
 async function generateConnection(offer) {
@@ -14,23 +16,25 @@ async function generateConnection(offer) {
 function generateQRcode(id) {
     let link = `http://${window.location.hostname}:5500/connect.html?id=${id}`
 
-
     let qrcodeContainer = document.createElement("div")
     qrcodeContainer.id = "qrcode"
 
     game.innerHTML = ""
     game.appendChild(qrcodeContainer)
 
-    new QRCode(document.getElementById("qrcode"), link);
+    new QRCode(document.getElementById("qrcode"), link, {
+        colorDark: "#000000",
+        colorLight: window.getComputedStyle(document.body).getPropertyValue('--main-color'),
+    });
 
     let alternativeLink = document.createElement("a")
     alternativeLink.id = "alternative-link"
     alternativeLink.target = "_blank"
-    alternativeLink.innerText = "Ou clique aqui!"
+    alternativeLink.innerHTML = "Ou clique aqui! <span>(mais chato)</span>"
     alternativeLink.onclick = (e) => {
-            e.preventDefault(); // impede o link de abrir do jeito padrão
-            window.open(link, "controlador", "width=600,height=300,toolbar=no,location=no,menubar=no");
-        };
+        e.preventDefault();
+        window.open(link, "controlador", "width=600,height=300,toolbar=no,location=no,menubar=no");
+    };
 
     document.getElementById("qrcode").parentElement.appendChild(alternativeLink)
 }
@@ -74,18 +78,51 @@ async function startGame() {
 
     game.appendChild(ship)
 
-    setInterval(createAsteroid, 1000)
-    setInterval(gameLoop, 10)
+    aLoop = setInterval(createAsteroid, 1000)
+    gLoop = setInterval(gameLoop, 10)
 }
 
 function gameLoop() {
+
+    const currentLeft = parseInt(document.querySelector("#game-ship").style.left) || parseInt(document.querySelector(".game-column").clientWidth / 2);
+
+    let ship = document.querySelector("#game-ship")
+    ship.style.left = `${currentLeft + left}px`
+
     document.querySelectorAll(".game-asteroid").forEach((e) => {
-        const currentTop = parseInt(e.style.top) || 0; 
+        checkColision(e, ship)
+
+        const currentTop = parseInt(e.style.top) || 0;
         e.style.top = `${currentTop + 1}px`;
     });
 }
 
 
+
+function checkColision(asteroid, ship) {
+    if (
+        asteroid.getBoundingClientRect().top + asteroid.getBoundingClientRect().height >= ship.getBoundingClientRect().top &&
+        asteroid.getBoundingClientRect().top <= ship.getBoundingClientRect().top + ship.getBoundingClientRect().height &&
+        asteroid.getBoundingClientRect().left + asteroid.getBoundingClientRect().width >= ship.getBoundingClientRect().left &&
+        asteroid.getBoundingClientRect().left <= ship.getBoundingClientRect().left + ship.getBoundingClientRect().width
+    ) {
+        game.innerHTML = ""
+
+        const lose = document.createElement('h2')
+        lose.classList.add("lose-text")
+        lose.innerHTML = "Game Over"
+        const restartButton = document.createElement('button')
+        restartButton.classList.add("restart-button")
+        restartButton.innerHTML = "Reiniciar"
+        restartButton.onclick = () => startGame()
+
+        game.appendChild(lose)
+        game.appendChild(restartButton)
+        clearInterval(gLoop)
+        clearInterval(aLoop)
+        asteroid.remove()
+    }
+}
 
 async function createAsteroid() {
     let asteroid = document.createElement("div")
@@ -93,20 +130,19 @@ async function createAsteroid() {
     asteroid.innerHTML = asteroidSvg
     asteroid.style.left = `${Math.floor(Math.random() * game.clientWidth)}px`;
     game.appendChild(asteroid)
+    setTimeout(() => asteroid.remove(), 10000);
 }
 
 
 function move(dir) {
-    console.log(left)
-    if (dir == "cima") {
-        // TODO: add velocity system
+    if (dir == "left") {
+        left = -1
 
-        document.getElementById("game-ship").style.left = `${left}px`
-        left += 10
-
-    } else {
-        document.getElementById("game-ship").style.left = `${left}px`
-        left -= 10
+    } else if (dir == "right") {
+        left = 1
+    }
+    else {
+        left = 0
     }
 }
 

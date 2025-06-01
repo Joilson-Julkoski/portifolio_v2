@@ -35,35 +35,44 @@
 <body>
     <main>
         <div class="column" id="main">
-            <div class="box" id="hero-box">
-                <div class="column" id="hero-left">
-                    <h1>Oi, eu sou o <span class="highlight">Joilson J.</span> um desenvolvedor <span
-                            class="highlight writer">fullstack</span></h1>
-                    <p>Se tiver alguma ideia ou projeto em mente, ou só quiser trocar uma ideia, fica à vontade pra me
-                        chamar!</p>
-                    <div class="row" id="conatct-row">
-                        <img class="icon" src="https://img.icons8.com/?size=100&id=16318&format=png&color=FFFFFF">
-                        <img class="icon" src="https://img.icons8.com/?size=100&id=98960&format=png&color=FFFFFF">
-                        <img class="icon" src="https://img.icons8.com/?size=100&id=38036&format=png&color=FFFFFF">
+            <div class="row">
+
+                <div class="box" id="hero-box">
+                    <div class="column" id="hero-left">
+                        <h1>Oi, eu sou o <span class="highlight">Joilson J.</span> um desenvolvedor <span
+                                class="highlight writer">fullstack</span></h1>
+                        <p>Se tiver alguma ideia ou projeto em mente, ou só quiser trocar uma ideia, fica à vontade pra
+                            me
+                            chamar!</p>
+                        <div class="row" id="conatct-row">
+                            <img class="icon" src="https://img.icons8.com/?size=100&id=16318&format=png&color=FFFFFF">
+                            <img class="icon" src="https://img.icons8.com/?size=100&id=98960&format=png&color=FFFFFF">
+                            <img class="icon" src="https://img.icons8.com/?size=100&id=38036&format=png&color=FFFFFF">
+                        </div>
                     </div>
+
+                    <!-- Carrega o model-viewer com suporte a efeitos -->
+
+                    <model-viewer id="effectsViewer" src="assets/old_pc.glb" camera-controls
+                        camera-orbit="130deg 65deg 11m" auto-rotate shadow-intensity="0" exposure="0.5"
+                        environment-image="neutral" style="width: 100%; height: 100%; min-width: 300px;">
+
+                        <effect-composer render-mode="quality">
+                            <color-grade-effect blend-mode="default" tonemapping="reinhard2"
+                                hue="0"></color-grade-effect>
+                            <outline-effect strength="1000" smoothing="0" color="#00ff00"
+                                blend-mode="ADD"></outline-effect>
+                            <glitch-effect strength="0.5" mode="sporadic" blend-mode="default"></glitch-effect>
+                            <pixelate-effect granularity="2" blend-mode="default"></pixelate-effect>
+                        </effect-composer>
+
+                    </model-viewer>
                 </div>
 
-                <!-- Carrega o model-viewer com suporte a efeitos -->
-
-                <model-viewer id="effectsViewer" src="assets/old_pc.glb" camera-controls camera-orbit="130deg 65deg 11m"
-                    auto-rotate shadow-intensity="0" exposure="0.5" environment-image="neutral"
-                    style="width: 600px; height: 100%;">
-
-                    <effect-composer render-mode="quality">
-                        <color-grade-effect blend-mode="default" tonemapping="reinhard2" hue="0"></color-grade-effect>
-                        <outline-effect strength="1000" smoothing="0" color="#00ff00" blend-mode="ADD"></outline-effect>
-                        <glitch-effect strength="0.5" mode="sporadic" blend-mode="default"></glitch-effect>
-                        <pixelate-effect granularity="2" blend-mode="default"></pixelate-effect>
-                    </effect-composer>
-
-                </model-viewer>
-
-
+                <div class="box game-column">
+                    <h2>Tecnologias que eu trabalho?</h2>
+                    <button id="start-button" onclick="createOffer()">Veja aqui!</button>
+                </div>
 
             </div>
 
@@ -119,8 +128,9 @@
                 </div>
             </div>
         </div>
-        <div class="box" id="game-column">
-            <button id="start-button" onclick="createOffer()">Começar!</button>
+        <div class="box game-column">
+            <h2>Tecnologias que eu trabalho?</h2>
+            <button id="start-button" onclick="createOffer()">Veja aqui!</button>
         </div>
 
     </main>
