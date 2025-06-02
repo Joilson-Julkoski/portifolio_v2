@@ -39,19 +39,19 @@ const container = document.querySelector('#experience-box');
 const fill = document.getElementById('fill');
 
 function getWaterLevelPercent() {
-  const now = new Date();
-  const minutesPassed = now.getHours() * 60 + now.getMinutes();
-  const totalMinutes = 24 * 60;
-  return (minutesPassed / totalMinutes) * 100;
+    const now = new Date();
+    const minutesPassed = now.getHours() * 60 + now.getMinutes();
+    const totalMinutes = 24 * 60;
+    return (minutesPassed / totalMinutes) * 100;
 }
 
 function updateWaterLevel() {
-  const percent = getWaterLevelPercent();
-  fill.style.height = `${percent}%`;
+    const percent = getWaterLevelPercent();
+    fill.style.height = `${percent}%`;
 }
 
 function resetWaterLevel() {
-  fill.style.height = `0%`;
+    fill.style.height = `0%`;
 }
 
 // Aplica quando entra
@@ -71,7 +71,7 @@ function createMoreXp() {
     const randomX = Math.floor(Math.random() * (box.clientWidth - 20)) + "px";
 
     xp.style.setProperty('--pos-x', randomX);
-    
+
     box.appendChild(xp)
 
     setTimeout(() => {
@@ -122,6 +122,10 @@ document.addEventListener("DOMContentLoaded", () => {
     const savedColor = localStorage.getItem('mainColor');
     if (savedColor) {
         document.body.style.setProperty('--main-color', savedColor);
+
+        let previous = document.querySelectorAll('.color-selector')
+        previous.forEach((e) => e.dataset.color === savedColor ? e.classList.add('selected') : e.classList.remove('selected'))
+
         getHueFromHex(savedColor);
     }
 

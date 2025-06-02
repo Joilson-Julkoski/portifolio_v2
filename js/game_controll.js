@@ -2,7 +2,8 @@ import { firebaseSaveUpdate, firebaseListening } from './firebase_controll.js';
 
 let peer, dataChannel;
 let left = 0
-const game = document.querySelector(".game-column")
+const allGames = document.querySelectorAll(".game-column")
+const game = [...allGames].filter((e) => window.getComputedStyle(e).display !== "none")[0]
 let gLoop = null
 let aLoop = null
 
@@ -14,11 +15,11 @@ async function generateConnection(offer) {
 }
 
 function generateQRcode(id) {
-    let link = `http://${window.location.hostname}:5500/connect.html?id=${id}`
+    let link = `${window.location.href}connect?id=${id}`
 
     let qrcodeContainer = document.createElement("div")
     qrcodeContainer.id = "qrcode"
-
+    console.log(game)
     game.innerHTML = ""
     game.appendChild(qrcodeContainer)
 
@@ -41,7 +42,7 @@ function generateQRcode(id) {
 
 
 function setLoadingScreen() {
-    document.getElementById("start-button").innerHTML = '<span class="loader"></span>   Carrengando'
+    document.querySelectorAll(".start-button").forEach(e => e.innerHTML = '<span class="loader"></span>   Carrengando')
 }
 
 
