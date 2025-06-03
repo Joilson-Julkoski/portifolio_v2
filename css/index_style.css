@@ -512,9 +512,12 @@ a {
     #hero-box {
         width: 100%;
     }
-    
+
     #featured-project {
         height: 100%;
+        width: 100%;
+        aspect-ratio: 1 / 1.2;
+        font-size: 14px;
     }
 
 }
