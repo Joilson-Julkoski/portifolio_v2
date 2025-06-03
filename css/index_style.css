@@ -567,10 +567,12 @@ a {
 @keyframes throwAway {
     0% {
         transform: translateY(0) translateX(0) rotate(0deg);
+        display: unset;
     }
 
     100% {
         transform: translateY(100vh) translateX(0) rotate(1000deg);
+        display: none;
     }
 }
 
@@ -579,11 +581,13 @@ a {
     0% {
         transform: translateY(0px);
         opacity: 1;
+        display: unset;
     }
 
     100% {
         transform: translateY(800px) rotateZ(25deg);
         opacity: 0;
+        display: none;
     }
 }
 

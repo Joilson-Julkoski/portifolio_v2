@@ -236,4 +236,17 @@ el.addEventListener("mouseup", function () {
 });
 
 
+
+
+let pin = document.getElementById("pin");
+let polaroid = document.getElementById("polaroid");
+
+pin.addEventListener("animationend", () => {
+    pin.style.display = "none";
+}, { once: true });
+
+polaroid.addEventListener("animationend", () => {
+    polaroid.style.display = "none";
+}, { once: true });
+
 const body = document.body;
